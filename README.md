@@ -1,1 +1,0 @@
-# rn-user-authentication-firebase
