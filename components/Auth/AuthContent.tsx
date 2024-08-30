@@ -6,8 +6,22 @@ import FlatButton from "../ui/FlatButton";
 import AuthForm from "./AuthForm";
 import { Colors } from "../../constants/styles";
 
-function AuthContent({ isLogin, onAuthenticate }) {
-  const navigation = useNavigation();
+type AuthContentProps = {
+  isLogin: boolean;
+  onAuthenticate: (credentials: {
+    email: string;
+    confirmEmail: string;
+    password: string;
+    confirmPassword: string;
+  }) => void;
+};
+
+type RootParamList = {
+  replace: (screen: string) => void;
+};
+
+function AuthContent({ isLogin, onAuthenticate }: AuthContentProps) {
+  const navigation = useNavigation<RootParamList>();
 
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
@@ -24,7 +38,12 @@ function AuthContent({ isLogin, onAuthenticate }) {
     }
   }
 
-  function submitHandler(credentials) {
+  function submitHandler(credentials: {
+    email: string;
+    confirmEmail: string;
+    password: string;
+    confirmPassword: string;
+  }) {
     let { email, confirmEmail, password, confirmPassword } = credentials;
 
     email = email.trim();
@@ -49,9 +68,8 @@ function AuthContent({ isLogin, onAuthenticate }) {
       });
       return;
     }
-    onAuthenticate({ email, password });
+    onAuthenticate({ email, confirmEmail, password, confirmPassword });
   }
-
   return (
     <View style={styles.authContent}>
       <AuthForm
