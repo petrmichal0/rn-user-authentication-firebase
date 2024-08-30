@@ -12,7 +12,6 @@ export async function createUser(email: string, password: string) {
         returnSecureToken: true,
       }
     );
-    console.log(response.data);
   } catch (error: unknown) {
     if (axios.isAxiosError(error) && error.response) {
       console.error("Error data:", error.response.data);
