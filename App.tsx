@@ -11,7 +11,7 @@ import { Colors } from "./constants/styles";
 import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import IconButton from "./components/ui/IconButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import AppLoading from "expo-app-loading";
+import { ActivityIndicator, View } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -85,7 +85,11 @@ function Root() {
   }, []);
 
   if (isTryingLogin) {
-    return <AppLoading />;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={Colors.primary500} />
+      </View>
+    );
   }
 
   return <Navigation />;
